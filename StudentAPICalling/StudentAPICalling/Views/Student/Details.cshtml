@@ -1,0 +1,124 @@
+﻿@model StudentAPICalling.Models.Student
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+   
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @{if (Model != null)
+        {
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StudentID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StudentID)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+
+
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+
+
+            </dd>
+            <table class="table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Subject
+                        </th>
+                        <th>
+                            Marks
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.StudentDetails)
+                    {
+
+                    <tr>
+                        <td>
+                            @item.Subject.Name
+
+
+                        </td>
+                        <td>
+                            @item.Mark
+
+
+                        </td>
+                    </tr>
+
+                    }
+                </tbody>
+            </table>
+        }
+        }
+
+
+    </dl>
+</div>
+
+@*<div class="row">
+    <div class="col-md-offset-2 col-md-8" style="">
+        <div class="col-md-12" style="color: #333; background-color: #f5f5f5; border-color: #ddd; padding: 10px 15px; border-bottom: 1px solid transparent; border-bottom-color: transparent; border-top-left-radius: 3px; border-top-right-radius: 3px; border: #DDDDDD solid 1px; ">
+            Marks Distribution
+        </div>
+        <table class="col-md-12" id="tblLoad" style="border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; border-spacing: 0; border-collapse: collapse; box-sizing:border-box;">
+            <tr style="border: #DDDDDD solid 1px;">
+                <th style="box-sizing: border-box;" class="col-md-6">
+
+                    Subject
+                </th>
+                <th style="box-sizing: border-box;" class="col-md-6">
+                    Marks
+                </th>
+
+            </tr>
+            @if (ViewBag.GridViewLoadDetails != null)
+            {
+                List<StudentManagement.Controllers.StudentMarks> mylistView = ViewBag.GridViewLoadDetails != null ? (List<StudentManagement.Controllers.StudentMarks>)ViewBag.GridViewLoadDetails : null;
+
+                foreach (var valItem in mylistView)
+                {
+                    <tr style="border: #DDDDDD solid 1px;">
+                        <td style="box-sizing: border-box;" class="col-md-6 two">@valItem.Sub</td>
+                        <td style="box-sizing: border-box;" class="col-md-6">@valItem.Marks</td>
+
+                    </tr>
+                }
+
+
+            }
+        </table>
+
+    </div>
+</div>*@
+
+<p>
+   
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

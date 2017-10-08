@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="StudentDetails" Relationship="Self.FK_StudentDetail1_Student" FromRole="Student" ToRole="StudentDetail" />
+  </EntityType>
+  <EntityType Name="StudentDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentID" Type="Int64" />
+    <Property Name="SubjectID" Type="Int32" />
+    <Property Name="Mark" Type="Decimal" Precision="5" Scale="2" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_StudentDetail1_Student" FromRole="StudentDetail" ToRole="Student" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK_StudentDetail1_Subject" FromRole="StudentDetail" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="SubjectID" />
+    </Key>
+    <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="StudentDetails" Relationship="Self.FK_StudentDetail1_Subject" FromRole="Subject" ToRole="StudentDetail" />
+  </EntityType>
+  <Association Name="FK_StudentDetail1_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="StudentDetail">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentDetail1_Subject">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="StudentDetail" Type="Self.StudentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectID" />
+      </Principal>
+      <Dependent Role="StudentDetail">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SMSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="StudentDetails" EntityType="Self.StudentDetail" />
+    <EntitySet Name="Subjects" EntityType="Self.Subject" />
+    <AssociationSet Name="FK_StudentDetail1_Student" Association="Self.FK_StudentDetail1_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentDetail" EntitySet="StudentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentDetail1_Subject" Association="Self.FK_StudentDetail1_Subject">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="StudentDetail" EntitySet="StudentDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

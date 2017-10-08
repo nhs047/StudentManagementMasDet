@@ -1,0 +1,33 @@
+﻿@model IEnumerable<StudentAPICalling.Models.Subject>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Create New", "Create", "Subject")
+<h2>Index</h2>
+<table class="table table-bordered table-condensed table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.SubjectID)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subject in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(s => subject.SubjectID)</td>
+                <td>@Html.DisplayFor(s => subject.Name)</td>
+               
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = subject.SubjectID }) 
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+

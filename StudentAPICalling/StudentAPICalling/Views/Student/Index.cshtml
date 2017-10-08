@@ -1,0 +1,38 @@
+﻿@model IEnumerable<StudentAPICalling.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+@Html.ActionLink("Create New","Create","Student")
+<h2>Index</h2>
+<table class="table table-bordered table-condensed table-striped">
+<thead>
+   <tr>
+       <th>@Html.DisplayNameFor(model => model.StudentID)</th>
+       <th>@Html.DisplayNameFor(model => model.Email)</th>
+       <th>Subject-Marks</th>
+    </tr> 
+</thead>
+<tbody>
+    @foreach(var student in Model){
+        <tr>
+            <td>@Html.DisplayFor(s=> student.StudentID)</td>
+            <td>@Html.DisplayFor(s=> student.Email)</td>
+            <td>
+            @foreach (var detail in student.StudentDetails)
+            {
+                <div>@Html.DisplayFor(t=> detail.Subject.Name)-@Html.DisplayFor(t => detail.Mark)</div>
+                
+            }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = student.StudentID }) |
+                @Html.ActionLink("Details", "Details", new { id = student.StudentID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = student.StudentID }, new { onclick = "return confirm('Are you sure to delete this student?');" })
+            </td>
+        </tr>
+    }
+    
+</tbody>
+
+</table>
